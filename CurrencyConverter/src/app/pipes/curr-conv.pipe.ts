@@ -5,9 +5,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CurrConvPipe implements PipeTransform {
   transform(value: number, ...args: [string, string]): any {
-    const [from, to] = args;
+    let [from, to] = args;
     if (from == to) {
       return value;
+    }
+    if (from == '0.876893') {
+      from = 'GBP';
+    } else if (from == '1.126735') {
+      from = 'USD';
+    } else {
+      from = 'INR';
+    }
+    if (to == '0.876893') {
+      to = 'GBP';
+    } else if (to == '1.126735') {
+      to = 'USD';
+    } else {
+      to = 'INR';
     }
     interface Exchange {
       id: string;
@@ -27,8 +41,8 @@ export class CurrConvPipe implements PipeTransform {
       (exchange) => exchange.id == to
     )!.value;
     //formula for exchange rates
-    value = (value * toValue) / fromValue;
-
-    return value;
+    let result: number = (value * toValue) / fromValue;
+    result = parseInt(result.toFixed(0));
+    return result.toFixed(2);
   }
 }

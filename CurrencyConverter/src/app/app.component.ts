@@ -7,9 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   show: boolean = false;
-  fromCurr: string = 'USD';
-  toCurr: string = 'GBP';
-  amount: number = 0.0;
+  fromCurr: string = '';
+  toCurr: string = '';
+  amount: number = 1.0;
   title = 'CurrencyConverter';
   result: string = 'sample';
+  showResult() {
+    if (this.fromCurr != '' && this.toCurr != '') {
+      this.show = true;
+    } else {
+      this.show = false;
+    }
+  }
 }
