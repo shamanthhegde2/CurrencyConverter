@@ -20,28 +20,14 @@ export class CurrConvPipe implements PipeTransform {
 
       { id: 'INR', value: 79.677056 },
     ];
+    const fromValue: any = exchangeRates.find(
+      (exchange) => exchange.id == from
+    )!.value;
     const toValue: any = exchangeRates.find(
       (exchange) => exchange.id == to
-    )?.value;
-    console.log(toValue);
-    switch (from) {
-      case 'USD': {
-        if (to == 'GBP') {
-          value = value / toValue;
-        } else {
-          value = value * toValue;
-        }
-        break;
-      }
-      case 'GBP': {
-        value = value * toValue;
-        break;
-      }
-      case 'INR': {
-        value = value / toValue;
-        break;
-      }
-    }
+    )!.value;
+    //formula for exchange rates
+    value = (value * toValue) / fromValue;
 
     return value;
   }
